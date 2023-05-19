@@ -1,10 +1,10 @@
-import settings
+import interface
 import tools
-import tkinter
-
+from tkinter import *
 
 def main():
     answer = input("напишите что хотите закодувути")
 
 if __name__ == "__main__":
-    main()
+    app = interface.App()
+    app.mainloop()

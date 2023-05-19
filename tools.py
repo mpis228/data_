@@ -24,26 +24,15 @@ polib = [
 
 class Adbash:
     @staticmethod
-    def cod(request: str):
+    def cod(text: str):
         resolt = []
-        for i in range(len(request)):
-            if request[i] in _atbas:
-                resolt.append(_atbas[request[i]])
+        for i in range(len(text)):
+            if text[i] in _atbas:
+                resolt.append(_atbas[text[i]])
             else:
-                resolt.append(request[i])
+                resolt.append(text[i])
         return ''.join(resolt)
 
-    @staticmethod
-    def decod(request: str):
-        resolt = []
-        for i in request:
-            if i in _atbas.values():
-                for key, value in _atbas.items():
-                    if value == i:
-                        resolt += key
-            else:
-                resolt += i
-        return ''.join(resolt)
 
 
 """остался один основ баг который я не трогал это то что когда символы которых нет в списке вести то выбьет ошибку
@@ -55,20 +44,24 @@ class Cezar:
     def __init__(self, rod=3):
         self.ROD = rod
 
-    def cod(self):
-        text = input()
+    def cod(self, text):
         answer = []
 
         for i in text:
-            answer.append(_cezar_revers[(_cezar[i] + self.ROD) % 32])
+            try:
+                answer.append(_cezar_revers[(_cezar[i] + self.ROD) % 32])
+            except:
+                answer.append(i)
         return ''.join(answer)
 
-    def decod(self):
-        text = input()
+    def decod(self, text):
         answer = []
 
         for i in text:
-            answer.append(_cezar_revers[(33 + _cezar[i] - self.ROD) % 33])
+            try:
+                answer.append(_cezar_revers[(33 + _cezar[i] - self.ROD) % 33])
+            except:
+                answer.append(i)
         return ''.join(answer)
 
 
@@ -88,8 +81,7 @@ class Polibia:
         else:
             return False
 
-    def cod(self):
-        text = input()
+    def cod(self, text):
         answer = []
 
         for char in text:
@@ -104,8 +96,8 @@ class Polibia:
         return ''.join(answer)
 
     @staticmethod
-    def decod():
-        text = input().split()
+    def decod(request):
+        text = request.split()
         answer = []
         for arg in text:
             answer.append(polib[int(arg[0]) - 1][int(arg[1]) - 1])
@@ -114,5 +106,4 @@ class Polibia:
 
     
 if __name__ == "__main__":
-    a = Polibia()
-    print(a.decod())
+    pass
