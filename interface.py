@@ -6,6 +6,7 @@ import tools
 class FatherW(customtkinter.CTkToplevel):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.main = None
         self.geometry("600x460")
         self.InputGet = customtkinter.CTkEntry(self)
         self.InputGet.pack()
@@ -50,21 +51,46 @@ class WindowAtbash(FatherW):
 class WindowCezar(FatherW):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.title("Шифр Атбаш")
+        self.title("Шифр Цезарь")
         self.main = tools.Cezar()
 
 
 class WindowPolibia(FatherW):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.title("Шифр Атбаш")
+        self.title("Шифр Полибия")
         self.main = tools.Polibia()
+
+
+class WindowTrisimys(FatherW):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.title("Шифр Трисемуса")
+        self.main = tools.Trisemus()
+        self.key_word_labal = customtkinter.CTkLabel(self, text="ведите слово ключ")
+        self.key_word_labal.pack()
+        self.input_get_word_key = customtkinter.CTkEntry(self)
+        self.input_get_word_key.pack()
+
+    def cod(self):
+        self.chek_leb_and_del()
+        text = self.InputGet.get()
+        key = self.input_get_word_key.get()
+        self.answer = customtkinter.CTkLabel(self, text=self.main.cod(key, text))
+        self.answer.pack()
+
+    def decod(self):
+        self.chek_leb_and_del()
+        text = self.InputGet.get()
+        key = self.input_get_word_key.get()
+        self.answer = customtkinter.CTkLabel(self, text=self.main.decod(key, text))
+        self.answer.pack()
 
 
 class App(customtkinter.CTk):
 
     """главаний класс я би ще назвал його класс меню тому что що в нем прописана логика роботи с другими класами
-    просанна работа 3 кнопок"""
+    просанна работа 4 кнопок"""
 
     def __init__(self):
         super().__init__()
@@ -75,27 +101,34 @@ class App(customtkinter.CTk):
         self.button_1 = customtkinter.CTkButton(self, text="Атбаш", command=self.open_atbash)
         self.button_2 = customtkinter.CTkButton(self, text="Цезар", command=self.open_cezar)
         self.button_3 = customtkinter.CTkButton(self, text="Полібія", command=self.open_polibi)
+        self.button_4 = customtkinter.CTkButton(self, text="Трісемус", command=self.open_trisimys)
         self.button_1.place(relx=0.2, rely=0.5, anchor=tkinter.CENTER)
         self.button_2.place(relx=0.5, rely=0.5, anchor=tkinter.CENTER)
         self.button_3.place(relx=0.8, rely=0.5, anchor=tkinter.CENTER)
+        self.button_4.place(relx=0.5, rely=0.65, anchor=tkinter.CENTER)
         self.top_wind = None
-    """окно роботи с атбаш"""
-    def open_atbash(self):
+
+    def open_atbash(self):  # октритие окно роботы с шифром атбаш
         if self.top_wind is None or not self.top_wind.winfo_exists():
             self.top_wind = WindowAtbash(self)
         else:
             self.top_wind.focus()
-    """окно роботи с цезарем"""
-    def open_cezar(self):
+
+    def open_cezar(self):  # октритие окно роботы с шифром цезарь
         if self.top_wind is None or not self.top_wind.winfo_exists():
             self.top_wind = WindowCezar(self)
         else:
             self.top_wind.focus()
 
-    """окно роботи с полібієм"""
-    def open_polibi(self):
+    def open_polibi(self):  # октритие окно роботы с шифром полибия
         if self.top_wind is None or not self.top_wind.winfo_exists():
             self.top_wind = WindowPolibia(self)
+        else:
+            self.top_wind.focus()
+
+    def open_trisimys(self):  # октритие окно роботы с шифром Трисемус
+        if self.top_wind is None or not self.top_wind.winfo_exists():
+            self.top_wind = WindowTrisimys(self)
         else:
             self.top_wind.focus()
 
